@@ -1,0 +1,14 @@
+a="AABEBCDD"
+b=a
+n = len(a)
+m = len(b)
+c = [["" for x in range(len(b))] for x in range(len(a))]
+for i in range(0, n):
+    for j in range(0, m):
+        if a[i-1] == b[j-1] and i!=j:
+            c[i][j] = a[i-1] + c[i-1][j-1]
+        else:
+            c[i][j] = max(c[i-1][j], c[i][j-1], key=len)
+v=c[-1][-1]
+h=v[::-1]
+print("Longest Repeating Sequence:",h)
