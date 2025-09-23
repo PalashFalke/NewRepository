@@ -1,0 +1,30 @@
+def lcs(m, n):
+    # Initialize matrix
+    matrix = [["" for _ in range(len(n))] for _ in range(len(m))]
+
+    # Fill matrix
+    for i in range(len(m)):
+        for j in range(len(n)):
+            if m[i] == n[j]:
+                if i == 0 or j == 0:
+                    matrix[i][j] = m[i]
+                else:
+                    matrix[i][j] = matrix[i-1][j-1] + m[i]
+            else:
+                top = matrix[i-1][j] if i > 0 else ""
+                left = matrix[i][j-1] if j > 0 else ""
+                matrix[i][j] = max(top, left, key=len)
+
+    # Print matrix
+    print("  LCS Matrix:")
+    for row in matrix:
+        print(["{:7}".format(cell) for cell in row])
+
+    # Final LCS result
+    cs = matrix[-1][-1]
+    return len(cs), cs
+
+# Example usage
+length, subsequence = lcs("XMJYAUZ", "MZJAWXU")
+print(f"\n  LCS Length: {length}")
+print(f"  LCS: {subsequence}")
